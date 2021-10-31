@@ -1,0 +1,19 @@
+Set up a classic environment for a c++ program.
+
+Create a class for the nodes - constructor & destructor.
+
+Create a class for the bst.
+Methods:
+print the tree
+test if the data is present
+insert data
+get the min
+get the max
+delete data
+convert to a linked list (we will need a class Pair)
+
+Problems on leetcode:
+700
+938
+98
+108
