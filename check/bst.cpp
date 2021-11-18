@@ -5,18 +5,16 @@ class BTNode{
 
 public:
 	T data;
-	BTNode<T>* left;
 	BTNode<T>* right;
+	BTNode<T>* left;
 
-BTNode(T data):data(data), left(NULL), right(NULL){
+BTNode(T data): data(data), right(NULL), left(NULL){
 
 }
 
 ~BTNode(){
-
 	delete left;
 	delete right;
-
 }
 
 };
@@ -26,33 +24,37 @@ class Pair{
 public:
 	BTNode<int>* head;
 	BTNode<int>* tail;
+
 };
 
 class BST{
 
 	BTNode<int>* root;
 
-	BTNode<int>* insertData(BTNode<int>* root, int data){
+	BTNode<int>* insertData(BTNode<int>* node, int data){
 
-		if (!root){
-			BTNode<int>* node = new BTNode<int>(data);
-			return node;
+		if (!node){
+
+			BTNode<int>* temp = new BTNode<int>(data);
+			return temp;
 		}
 
-		if (root->data < data){
-			root->right = insertData(root->right, data);
+		if (node->data > data){
+			node->left = insertData(node->left, data);
 		}
 
-		else if (root->data > data){
-			root->left = insertData(root->left, data);
+		else if (node->data < data){
+			node->right = insertData(node->right, data);
 		}
 
-		return root;
-
+		return node;
 	}
 
 	void print(BTNode<int>* root){
-		if (!root) return;
+
+		if (!root){
+			return;
+		}
 
 		std::cout<<root->data<<std::endl;
 
@@ -66,128 +68,132 @@ class BST{
 
 		print(root->left);
 		print(root->right);
-	}
-
-	bool hasData(BTNode<int>* root, int data){
-		if (!root) return false;
-
-		if (root->data > data){
-			return hasData(root->left, data);
-		}
-
-		else if (root->data < data){
-			return hasData(root->right, data);
-		}
-
-		return true;
-	}
-
-	int minV(BTNode<int>* root){
-
-		if (!root){
-			std::cout<<"No Tree so no min!"<<std::endl;
-			return -1;
-		}
-
-		while(root->left){
-			root = root->left;
-		}
-
-		return root->data;
 
 	}
 
-	int maxV(BTNode<int>* root){
+	bool hasData(BTNode<int>* node, int data){
 
-		if (!root){
-			std::cout<<"No Tree so no min!"<<std::endl;
-			return -1;
+		if (!node){
+			return false;
 		}
 
-		while(root->right){
-			root = root->right;
+		if (node->data > data){
+			return hasData(node->left, data);
 		}
 
-		return root->data;
-
-	}
-
-	BTNode<int>* deleteData(BTNode<int>* root, int data){
-
-		if (!root) return NULL;
-
-		if (root->data < data){
-			root->right = deleteData(root->right, data);
-		}
-
-		else if (root->data > data){
-			root->left = deleteData(root->left, data);
+		else if (node->data < data){
+			return hasData(node->right, data);
 		}
 
 		else{
-			if (root->left == NULL && root->right == NULL){
-				delete root;
+			return true;
+		}
+	}
+
+	int minV(BTNode<int>* node){
+
+		if (!node){
+			std::cout<<"ERROR: Tree is empty."<<std::endl;
+			return -1;
+		}
+
+		while(node->left){
+			node = node->left;
+		}
+
+		return node->data;
+	}
+
+	int maxV(BTNode<int>* node){
+
+		if (!node){
+			std::cout<<"ERROR: Tree is empty"<<std::endl;
+			return -1;
+		}
+
+		while(node->right){
+			node = node->right;
+		}
+
+		return node->data;
+	}
+
+	BTNode<int>* deleteData(BTNode<int>* node, int data){
+
+		if (!node) return NULL;
+
+		if (node->data < data){
+			node->right =  deleteData(node->right, data);
+		}
+
+		else if (node->data > data){
+			node->left = deleteData(node->left, data);
+		}
+
+		else{
+			if (node->left == NULL && node->right == NULL){
+				delete node;
 				return NULL;
 			}
 
-			else if (root->left == NULL && root->right != NULL){
-				BTNode<int>* temp = root->right;
-				root->right = NULL;
-				delete root;
+			else if (node->left == NULL && node->right != NULL){
+				BTNode<int>* temp = node->right;
+				node->right = NULL;
+				delete node;
 				return temp;
 			}
 
-			else if (root->left != NULL && root->right == NULL){
-				BTNode<int>* temp = root->left;
-				root->left = NULL;
-				delete root;
+			else if (node->left != NULL && node->right == NULL){
+				BTNode<int>* temp = node->left;
+				node->left = NULL;
+				delete node;
 				return temp;
 			}
 
 			else{
-				BTNode<int>* minNode = root->right;
-				while(minNode->left){
+				BTNode<int>* minNode = node->right;
+				while (minNode->left){
 					minNode = minNode->left;
 				}
-
 				int minData = minNode->data;
-				root->data = minData;
-				root->right = deleteData(root->right, data);
-			}
 
+				node->data = minData;
+				node->right = deleteData(node->right, data);
+
+			}
 		}
 
-		return root;
+		return node;
+
 	}
 
-	Pair convertToLL(BTNode<int>* root){
-		if (!root){
+	Pair convertToLL(BTNode<int>* node){
+		if (!node){
 			Pair ans;
 			ans.head = NULL;
 			ans.tail = NULL;
 			return ans;
 		}
 
-		if (root->left == NULL && root->right == NULL){
+		if (node->left == NULL && node->right == NULL){
 			Pair ans;
-			ans.head = root;
-			ans.tail = root;
+			ans.head = node;
+			ans.tail = node;
 			return ans;
 		}
 
-		if (root->left != NULL && root->right == NULL){
-			Pair leftLL = convertToLL(root->left);
+		else if (node->left != NULL && node->right == NULL){
+			Pair leftLL = convertToLL(node->left);
 			leftLL.tail->right = root;
 
 			Pair ans;
 			ans.head = leftLL.head;
 			ans.tail = root;
-
 			return ans;
 		}
 
-		if (root->left == NULL && root->right != NULL){
-			Pair rightLL = convertToLL(root->right);
+		else if (node->right != NULL && node->left == NULL){
+			Pair rightLL = convertToLL(node->right);
 			root->right = rightLL.head;
 
 			Pair ans;
@@ -197,34 +203,36 @@ class BST{
 			return ans;
 		}
 
-		else{
-			Pair leftLL = convertToLL(root->left);
-			Pair rightLL = convertToLL(root->right);
+		else {
+			Pair leftLL = convertToLL(node->left);
+			Pair rightLL = convertToLL(node->right);
 
-			leftLL.tail->right = root;
-			root->right = rightLL.head;
+			leftLL.tail->right = node;
+			node->right = rightLL.head;
 
 			Pair ans;
 			ans.head = leftLL.head;
 			ans.tail = rightLL.tail;
 
 			return ans;
-
 		}
+
+
 	}
 
-
 public:
+
 	BST(): root(NULL){
 
 	}
+
 
 	void insertData(int data){
 		root = insertData(root, data);
 	}
 
 	void print(){
-		print(root);
+		return print(root);
 	}
 
 	bool hasData(int data){
@@ -260,9 +268,10 @@ public:
 	}
 };
 
+
 int main(){
 
-	std::cout<<"Checking bst"<<std::endl;
+	std::cout<<"Checking bst :)"<<std::endl;
 
 	BST b;
 
