@@ -136,14 +136,14 @@ class BST{
 				return NULL;
 			}
 
-			else if (node->left == NULL && node->right != NULL){
+			else if (node->left == NULL){
 				BTNode<int>* temp = node->right;
 				node->right = NULL;
 				delete node;
 				return temp;
 			}
 
-			else if (node->left != NULL && node->right == NULL){
+			else if (node->right == NULL){
 				BTNode<int>* temp = node->left;
 				node->left = NULL;
 				delete node;
@@ -158,7 +158,7 @@ class BST{
 				int minData = minNode->data;
 
 				node->data = minData;
-				node->right = deleteData(node->right, data);
+				node->right = deleteData(node->right, minData);
 
 			}
 		}
@@ -194,10 +194,10 @@ class BST{
 
 		else if (node->right != NULL && node->left == NULL){
 			Pair rightLL = convertToLL(node->right);
-			root->right = rightLL.head;
+			// root->right = rightLL.head;
 
 			Pair ans;
-			ans.head = root;
+			ans.head = node;
 			ans.tail = rightLL.tail;
 
 			return ans;
@@ -208,7 +208,7 @@ class BST{
 			Pair rightLL = convertToLL(node->right);
 
 			leftLL.tail->right = node;
-			node->right = rightLL.head;
+			// node->right = rightLL.head;
 
 			Pair ans;
 			ans.head = leftLL.head;
@@ -281,6 +281,8 @@ int main(){
 	b.insertData(7);
 	b.insertData(3);
 	b.insertData(15);
+	b.insertData(100);
+	b.insertData(150);
 
 	b.print();
 
@@ -291,7 +293,7 @@ int main(){
 	std::cout<<"#############"<<std::endl;
 	std::cout<<b.minV()<<std::endl;
 	std::cout<<b.maxV()<<std::endl;
-
+	//
 	b.deleteData(20);
 	std::cout<<"#############"<<std::endl;
 	b.print();

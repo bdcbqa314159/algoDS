@@ -5,8 +5,8 @@ class BTNode{
 
 public:
 	T data;
-	BTNode<int>* left;
-	BTNode<int>* right;
+	BTNode<T>* left;
+	BTNode<T>* right;
 
 	BTNode(T data): data(data), left(NULL), right(NULL){
 
@@ -147,7 +147,7 @@ class BST{
 
 				int minData = minNode->data;
 				node->data = minData;
-				node->right = deleteData(node->right, data);
+				node->right = deleteData(node->right, minData);
 			}
 		}
 
@@ -273,6 +273,9 @@ int main(){
 	b.insertData(7);
 	b.insertData(3);
 	b.insertData(15);
+	b.insertData(100);
+	b.insertData(1);
+	b.insertData(150);
 
 	b.print();
 
