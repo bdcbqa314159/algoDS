@@ -184,17 +184,17 @@ class BST{
 
 		else if (node->left != NULL && node->right == NULL){
 			Pair leftLL = convertToLL(node->left);
-			leftLL.tail->right = root;
+			leftLL.tail->right = node;
 
 			Pair ans;
 			ans.head = leftLL.head;
-			ans.tail = root;
+			ans.tail = node;
 			return ans;
 		}
 
 		else if (node->right != NULL && node->left == NULL){
 			Pair rightLL = convertToLL(node->right);
-			// root->right = rightLL.head;
+			root->right = rightLL.head;
 
 			Pair ans;
 			ans.head = node;
@@ -208,7 +208,7 @@ class BST{
 			Pair rightLL = convertToLL(node->right);
 
 			leftLL.tail->right = node;
-			// node->right = rightLL.head;
+			node->right = rightLL.head;
 
 			Pair ans;
 			ans.head = leftLL.head;
@@ -276,27 +276,30 @@ int main(){
 	BST b;
 
 	b.insertData(10);
-	b.insertData(5);
-	b.insertData(20);
-	b.insertData(7);
-	b.insertData(3);
 	b.insertData(15);
-	b.insertData(100);
-	b.insertData(150);
+	b.insertData(11);
+
+	// b.insertData(5);
+	// b.insertData(20);
+	// b.insertData(7);
+	// b.insertData(3);
+	// b.insertData(15);
+	// b.insertData(100);
+	// b.insertData(150);
 
 	b.print();
 
-	std::cout<<"#############"<<std::endl;
-	std::cout<<b.hasData(100)<<std::endl;
-	std::cout<<b.hasData(15)<<std::endl;
-
-	std::cout<<"#############"<<std::endl;
-	std::cout<<b.minV()<<std::endl;
-	std::cout<<b.maxV()<<std::endl;
+	// std::cout<<"#############"<<std::endl;
+	// std::cout<<b.hasData(100)<<std::endl;
+	// std::cout<<b.hasData(15)<<std::endl;
 	//
-	b.deleteData(20);
-	std::cout<<"#############"<<std::endl;
-	b.print();
+	// std::cout<<"#############"<<std::endl;
+	// std::cout<<b.minV()<<std::endl;
+	// std::cout<<b.maxV()<<std::endl;
+	// //
+	// b.deleteData(20);
+	// std::cout<<"#############"<<std::endl;
+	// b.print();
 
 	BTNode<int>* head = b.convertToLL();
 	BTNode<int>* tmp = head;
