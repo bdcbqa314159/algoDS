@@ -1,0 +1,63 @@
+Set up a classic environment for a c++ program.
+Don't forget the -std=c++11 for the compilation as we use auto here.
+
+Usage of inbuilt unordered_map with pair.
+Insert elements
+Usage of [] and .at()
+Usage of .count() to check if a key is present.
+Usage of .size()
+Usage of [] to change values.
+Usage of .erase()
+
+Classic example
+Create an array of integers with duplicates and make them uniques.
+
+Usage of Iterators
+Declaration of an iterator.
+With unordered_map/map/vector.
+Usage of .find(key) with .end()
+
+Usage of auto -> usage with parcimony.
+
+Hashmap from scratch
+Creation of a MapNode
+Creation of myMap
+
+getBucketIndex
+rehash
+Constructor/destructor
+
+size
+getValue
+insert
+remove
+getLoadFactor
+
+std::cout<<"========= myMap testing =========="<<std::endl;
+
+MyMap<int> ourMap;
+
+for (int i = 0; i<10; i++){
+	char c = '0'+i;
+	std::string key = "abc";
+	key += c;
+	int value = 1+i;
+	ourMap.insert(key,value);
+	std::cout<<ourMap.getLoadFactor()<<std::endl;
+}
+
+std::cout<<ourMap.size()<<std::endl;
+
+ourMap.remove("abc1");
+ourMap.remove("abc6");
+for (int i = 0; i<10; i++){
+	char c = '0'+i;
+	std::string key = "abc";
+	key += c;
+	std::cout<<key<<": "<<ourMap.getValue(key)<<std::endl;
+}
+
+std::cout<<ourMap.size()<<std::endl;
+
+return 0;
+}
