@@ -37,7 +37,6 @@ public:
 
 };
 
-template <typename T>
 class MyMap{
 
 	MapNode<T>** buckets;
@@ -328,7 +327,7 @@ int main(){
 	}
 
 	std::cout<<ourMap.size()<<std::endl;
-	
+
 	ourMap.remove("abc1");
 	ourMap.remove("abc6");
 	for (int i = 0; i<10; i++){
