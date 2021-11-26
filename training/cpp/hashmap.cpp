@@ -8,25 +8,61 @@
 
 bool isPresent(std::unordered_map<std::string, int> u_map, std::string key){
 
+	return (u_map.count(key) > 0);
 
 }
 
 void isPresentInterface(std::unordered_map<std::string, int> u_map, std::string key){
 
+	bool test = isPresent(u_map,key);
+
+	if (test){
+		std::cout<<key<<" is present in this u_map."<<std::endl;
+	}
+
+	else{
+		std::cout<<key<<" is not present in this u_map."<<std::endl;
+	}
 
 
 }
 
 void givingSize(std::unordered_map<std::string, int> u_map){
 
-}
-
-void updatingHashMap(std::unordered_map<std::string, int> u_map, std::string key, int value){
-
+	std::cout<<"Size of this u_map: "<<u_map.size()<<std::endl;
 
 }
 
-void erasingValues(std::unordered_map<std::string, int> u_map, std::string key){
+void updatingHashMap(std::unordered_map<std::string, int> &u_map, std::string key, int value){
+
+	bool test = isPresent(u_map, key);
+
+	if (test){
+		std::cout<<key<<" is present in this u_map the old value is "<<u_map[key]<<std::endl;
+	}
+	else{
+		std::cout<<key<<" is not present the default value is "<<u_map[key]<<std::endl;
+	}
+
+	u_map[key] = value;
+	std::cout<<"The new value for this key: "<<key<<" is "<<u_map[key]<<std::endl;
+
+
+}
+
+void erasingValues(std::unordered_map<std::string, int> &u_map, std::string key){
+
+	bool test = isPresent(u_map, key);
+
+	if (test){
+		std::cout<<"The key "<<key<<" is present - erasing ..."<<std::endl;
+		u_map.erase(key);
+		std::cout<<"The key "<<key<<" has been erased."<<std::endl;
+	}
+
+	else{
+		std::cout<<"The key "<<key<<" is not there - there is nothing to do."<<std::endl;
+	}
 
 
 }
@@ -35,29 +71,51 @@ void usageInbuiltHashMap(){
 
 	std::cout<<"======= Inbuilt hashmaps : unordered_map ======"<<std::endl;
 
-
+	std::unordered_map<std::string, int> myMap;
+	std::string key = "abc";
+	std::string key1 = "def";
+	std::string key2 = "xyz";
+	std::string key3 = "uvw";
 
 	//insert needs pair data structure.
+	std::pair<std::string, int> p(key, 10);
 
+	myMap.insert(p);
 
 	//we can use also [] as arrays & vectors
+
+	myMap[key1] = 20;
+
+	//Show content
+
+	std::cout<<key<<" : "<<myMap[key]<<std::endl;
+	std::cout<<key1<<" : "<<myMap.at(key1)<<std::endl;
 
 	//xyz not present, if we ask with .at we will have an exception if we ask
 	//with [] we will have 0 value and the key will be added.
 	// std::cout<<key2<<" : "<<myMap.at(key2)<<std::endl;
 
+	std::cout<<key2<<" : "<<myMap[key2]<<std::endl;
+
 	//checking if a key is present
 
 	isPresentInterface(myMap, key3);
 	isPresentInterface(myMap, key2);
-
-	//updating values
+	//
+	// //updating values
 	givingSize(myMap);
-
+	//
 	updatingHashMap(myMap, key2, 20);
 	updatingHashMap(myMap, "xcv", 20);
 
-	myMap.erase(key2);
+	std::cout<<key<<" : "<<myMap[key]<<std::endl;
+	std::cout<<key1<<" : "<<myMap.at(key1)<<std::endl;
+	std::cout<<key2<<" : "<<myMap[key2]<<std::endl;
+	std::cout<<key3<<" : "<<myMap[key3]<<std::endl;
+	std::cout<<"xcv"<<" : "<<myMap["xcv"]<<std::endl;
+	givingSize(myMap);
+
+	erasingValues(myMap, key2);
 	givingSize(myMap);
 	isPresentInterface(myMap, key2);
 
@@ -68,7 +126,16 @@ void usageInbuiltHashMap(){
 std::vector<int> removeDuplicates(int* arr, int size){
 	std::vector<int> ans;
 
+	std::unordered_map<int, bool> umap;
 
+	for (int i = 0 ; i<size; i++){
+
+		if (umap.count(arr[i]) == 0){
+			ans.push_back(arr[i]);
+			umap[arr[i]] = true;
+		}
+
+	}
 
 	return ans;
 
@@ -94,15 +161,23 @@ void iteratorsUMap(){
 	myMap["abc3"] = 11;
 	myMap["abc4"] = 5;
 
-	//Usage of iterator
+	std::unordered_map<std::string, int>::iterator it;
 
-	//Find & erase with iterator
+	for (it = myMap.begin(); it != myMap.end(); it++){
+		std::cout<<it->first<<" : "<<it->second<<std::endl;
+	}
+
+	it = myMap.find("abc");
+	isPresentInterface(myMap,"abc");
+	myMap.erase(it);
+	isPresentInterface(myMap,"abc");
+
 
 	std::string key = "abc1";
 
 	std::cout<<"Is present with iterators."<<std::endl;
 	//Find with iterator
-	if (){
+	if (myMap.find(key) == myMap.end()){
 		std::cout<<key<<" not present."<<std::endl;
 	}
 
@@ -112,8 +187,13 @@ void iteratorsUMap(){
 	}
 
 	//Erase all the u_map
+	myMap.erase(myMap.begin(), myMap.end());
 
 	//Usage of iterator
+	for (it = myMap.begin(); it != myMap.end(); it++){
+		std::cout<<it->first<<" : "<<it->second<<std::endl;
+	}
+
 
 	givingSize(myMap);
 }
@@ -121,14 +201,20 @@ void iteratorsUMap(){
 void iteratorsMap(){
 
 	std::cout<<"====== Iterators with map ======"<<std::endl;
-	std::map<std::string, int> myMap1;
-	myMap1["abc"] = 1;
-	myMap1["abc1"] = -23;
-	myMap1["abc2"] = 190;
-	myMap1["abc3"] = 11;
-	myMap1["abc4"] = 5;
+	std::map<std::string, int> myMap;
+	myMap["abc"] = 1;
+	myMap["abc1"] = -23;
+	myMap["abc2"] = 190;
+	myMap["abc3"] = 11;
+	myMap["abc4"] = 5;
 
 	//Usage of iterator
+
+	std::map<std::string, int>::iterator it;
+
+	for (it = myMap.begin(); it != myMap.end(); it++){
+		std::cout<<it->first<<" : "<<it->second<<std::endl;
+	}
 }
 
 void iteratorsVector(){
@@ -141,7 +227,11 @@ void iteratorsVector(){
 	vec.push_back(90);
 	vec.push_back(-109);
 
-	//Usage of iterator
+	std::vector<int>::iterator it;
+
+	for (it = vec.begin(); it != vec.end(); it++){
+		std::cout<<*it<<std::endl;
+	}
 }
 
 void iterators(){
@@ -169,50 +259,196 @@ void autoKeyWord(){
 template <class T>
 class MapNode{
 
-	//Constructor & Destructor
+public:
+	std::string key;
+	T value;
+	MapNode<T>* next;
+
+	MapNode(std::string key, T value): key(key), value(value), next(NULL){
+
+	}
+
+	~MapNode(){
+		delete next;
+	}
 
 };
 
 template <class T>
 class MyMap{
 
-
+	MapNode<T>** buckets;
+	int counter;
+	int numBuckets;
 
 	int getBucketIndex(std::string key){
 
+		int hashCode = 0;
+
+		int base = 1;
+		int p = 37;
+
+		for (int i = key.size()-1; i>=0; i--){
+			hashCode *= key[i]*base;
+			base *= p;
+
+			hashCode %= numBuckets;
+			base %= numBuckets;
+		}
+
+		return hashCode % numBuckets;
 
 	}
 
 	void rehash(){
 
+		MapNode<T>** temp = buckets;
+
+		buckets = new MapNode<T>*[2*numBuckets];
+
+		for (int i = 0; i<2*numBuckets; i++){
+			buckets[i] = NULL;
+		}
+
+		int oldBucketSize = numBuckets;
+		numBuckets *= 2;
+		counter = 0;
+
+		for (int i=0; i<oldBucketSize; i++){
+			MapNode<T>* head = temp[i];
+
+			while (head){
+				std::string key = head->key;
+				T value = head->value;
+				insert(key, value);
+				head = head->next;
+			}
+		}
+
+		for (int i =0; i<oldBucketSize; i++){
+			delete temp[i];
+		}
+
+		delete []temp;
+
 
 
 	}
 
+public:
 
+	MyMap(): counter(0), numBuckets(5){
 
-	//Constructor & Destructor
+		buckets = new MapNode<T>* [numBuckets];
+		for (int i = 0; i<numBuckets; i++){
+			buckets[i] = NULL;
+		}
+	}
+
+	~MyMap(){
+		for (int i = 0; i<numBuckets; i++){
+			delete buckets[i];
+		}
+
+		delete []buckets;
+	}
 
 
 	int size(){
-
+		return counter;
 	}
 
 	T getValue(std::string key){
+
+		int bucketIndex = getBucketIndex(key);
+
+		MapNode<T>* head = buckets[bucketIndex];
+
+		while (head){
+
+			if (head->key == key){
+				return head->value;
+			}
+
+			head = head->next;
+		}
+
+		std::cout<<"--key absent--"<<std::endl;
+		return 0;
 
 	}
 
 	void insert(std::string key, T value){
 
+		int bucketIndex = getBucketIndex(key);
+
+		MapNode<T>* head = buckets[bucketIndex];
+
+		while (head){
+
+			if (head->key == key){
+				head->value = value;
+				return;
+			}
+
+			head = head->next;
+
+		}
+
+		MapNode<T>* node = new MapNode<T>(key, value);
+		node->next = buckets[bucketIndex];
+		buckets[bucketIndex] = node;
+		counter++;
+
+		double loadFactor = (1.*counter)/numBuckets;
+
+		if (loadFactor > 0.7){
+			rehash();
+		}
+
+		return;
+
 	}
 
 	T remove(std::string key){
 
+		int bucketIndex = getBucketIndex(key);
+		MapNode<T>* head = buckets[bucketIndex];
+		MapNode<T>* prev = NULL;
 
+		while (head){
+
+			if (head->key == key){
+
+				if (prev == NULL){
+					buckets[bucketIndex] = head->next;
+				}
+
+				else{
+					prev->next = head->next;
+				}
+
+				T value = head->value;
+				head->next = NULL;
+				head = NULL;
+				delete head;
+
+				counter --;
+				return value;
+			}
+
+			prev = head;
+			head = head->next;
+		}
+
+		std::cout<<"--key absent--"<<std::endl;
+		return 0;
 
 	}
 
 	double getLoadFactor(){
+
+		return (1.*counter)/numBuckets;
 
 	}
 
