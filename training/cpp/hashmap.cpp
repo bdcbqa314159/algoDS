@@ -256,6 +256,8 @@ void autoKeyWord(){
 
 //Implementing our hashmap
 
+//Implementing our hashmap
+
 template <class T>
 class MapNode{
 
@@ -271,15 +273,15 @@ public:
 	~MapNode(){
 		delete next;
 	}
+
 };
 
 template <class T>
 class MyMap{
 
 	MapNode<T>** buckets;
-	int counter;
 	int numBuckets;
-
+	int counter;
 
 	int getBucketIndex(std::string key){
 
@@ -289,12 +291,11 @@ class MyMap{
 
 		for (int i = key.size()-1; i>=0; i--){
 
-			hashCode = key[i]*base;
+			hashCode += key[i]*base;
 			base *= p;
 
 			hashCode %= numBuckets;
 			base %= numBuckets;
-
 		}
 
 		return hashCode%numBuckets;
@@ -303,9 +304,8 @@ class MyMap{
 
 	void rehash(){
 
-
 		MapNode<T>** temp = buckets;
-		buckets = new MapNode<T>* [2*numBuckets];
+		buckets = new MapNode<T>*[2*numBuckets];
 
 		for (int i = 0; i<2*numBuckets; i++){
 			buckets[i] = NULL;
@@ -315,20 +315,19 @@ class MyMap{
 		numBuckets *= 2;
 		counter = 0;
 
-		for (int i = 0; i<oldBucketSize; i++){
+		for (int i=0; i<oldBucketSize; i++){
 			MapNode<T>* head = temp[i];
 
 			while (head){
 				std::string key = head->key;
 				T value = head->value;
-
 				insert(key, value);
+
 				head = head->next;
 			}
 		}
-		
 
-		for (int i = 0; i<oldBucketSize; i++){
+		for (int i=0; i<oldBucketSize; i++){
 			delete temp[i];
 		}
 
@@ -337,18 +336,19 @@ class MyMap{
 	}
 
 
+
 public:
 
-	MyMap():counter(0), numBuckets(5){
-
+	MyMap():numBuckets(2), counter(0){
 		buckets = new MapNode<T>* [numBuckets];
+
 		for (int i = 0; i<numBuckets; i++){
 			buckets[i] = NULL;
 		}
-
 	}
 
 	~MyMap(){
+
 		for (int i = 0; i<numBuckets; i++){
 			delete buckets[i];
 		}
@@ -358,10 +358,13 @@ public:
 
 
 	int size(){
+
 		return counter;
+
 	}
 
 	T getValue(std::string key){
+
 		int bucketIndex = getBucketIndex(key);
 		MapNode<T>* head = buckets[bucketIndex];
 
@@ -380,7 +383,6 @@ public:
 
 	void insert(std::string key, T value){
 
-
 		int bucketIndex = getBucketIndex(key);
 		MapNode<T>* head = buckets[bucketIndex];
 
@@ -388,14 +390,12 @@ public:
 
 			if (head->key == key){
 				head->value = value;
-				return;
 			}
 
 			head = head->next;
 		}
 
 		MapNode<T>* node = new MapNode<T>(key, value);
-
 		node->next = buckets[bucketIndex];
 		buckets[bucketIndex] = node;
 
@@ -406,7 +406,6 @@ public:
 			rehash();
 		}
 
-		return;
 	}
 
 	T remove(std::string key){
@@ -418,36 +417,36 @@ public:
 		while (head){
 
 			if (head->key == key){
-
 				if (prev == NULL){
 					buckets[bucketIndex] = head->next;
 				}
+
 				else{
-
 					prev->next = head->next;
-
 				}
 
 				T value = head->value;
 				head->next = NULL;
 				head = NULL;
 				delete head;
-				counter --;
+				counter--;
+
 				return value;
 			}
+
 			prev = head;
 			head = head->next;
+
 		}
 
 		std::cout<<"--key absent--"<<std::endl;
 		return 0;
 
+
 	}
 
 	double getLoadFactor(){
-
 		return (1.*counter)/numBuckets;
-
 	}
 
 };
