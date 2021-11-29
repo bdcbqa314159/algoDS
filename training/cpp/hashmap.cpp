@@ -256,8 +256,6 @@ void autoKeyWord(){
 
 //Implementing our hashmap
 
-//Implementing our hashmap
-
 template <class T>
 class MapNode{
 
@@ -290,8 +288,7 @@ class MyMap{
 		int p = 37;
 
 		for (int i = key.size()-1; i>=0; i--){
-
-			hashCode += key[i]*base;
+			hashCode = key[i]*base;
 			base *= p;
 
 			hashCode %= numBuckets;
@@ -305,17 +302,17 @@ class MyMap{
 	void rehash(){
 
 		MapNode<T>** temp = buckets;
-		buckets = new MapNode<T>*[2*numBuckets];
-
-		for (int i = 0; i<2*numBuckets; i++){
-			buckets[i] = NULL;
-		}
+		buckets = new MapNode<T>* [2*numBuckets];
 
 		int oldBucketSize = numBuckets;
 		numBuckets *= 2;
 		counter = 0;
 
-		for (int i=0; i<oldBucketSize; i++){
+		for (int i = 0; i<numBuckets; i++){
+			buckets[i] = NULL;
+		}
+
+		for (int i = 0; i<oldBucketSize; i++){
 			MapNode<T>* head = temp[i];
 
 			while (head){
@@ -327,21 +324,18 @@ class MyMap{
 			}
 		}
 
-		for (int i=0; i<oldBucketSize; i++){
+		for (int i = 0; i<oldBucketSize; i++){
 			delete temp[i];
 		}
 
 		delete []temp;
-
 	}
-
-
 
 public:
 
 	MyMap():numBuckets(2), counter(0){
-		buckets = new MapNode<T>* [numBuckets];
 
+		buckets = new MapNode<T>* [numBuckets];
 		for (int i = 0; i<numBuckets; i++){
 			buckets[i] = NULL;
 		}
@@ -358,13 +352,10 @@ public:
 
 
 	int size(){
-
 		return counter;
-
 	}
 
 	T getValue(std::string key){
-
 		int bucketIndex = getBucketIndex(key);
 		MapNode<T>* head = buckets[bucketIndex];
 
@@ -377,7 +368,7 @@ public:
 			head = head->next;
 		}
 
-		std::cout<<"--key absent--"<<std::endl;
+		std::cout<<"WARNING - key absent!"<<std::endl;
 		return 0;
 	}
 
@@ -390,22 +381,24 @@ public:
 
 			if (head->key == key){
 				head->value = value;
+				return;
 			}
 
 			head = head->next;
 		}
 
-		MapNode<T>* node = new MapNode<T>(key, value);
+		MapNode<T>* node = new MapNode<T>(key,value);
 		node->next = buckets[bucketIndex];
 		buckets[bucketIndex] = node;
-
 		counter++;
 
 		double loadFactor = (1.*counter)/numBuckets;
+
 		if (loadFactor > 0.7){
 			rehash();
 		}
 
+		return;
 	}
 
 	T remove(std::string key){
@@ -417,6 +410,7 @@ public:
 		while (head){
 
 			if (head->key == key){
+
 				if (prev == NULL){
 					buckets[bucketIndex] = head->next;
 				}
@@ -430,19 +424,15 @@ public:
 				head = NULL;
 				delete head;
 				counter--;
-
 				return value;
 			}
 
 			prev = head;
 			head = head->next;
-
 		}
 
-		std::cout<<"--key absent--"<<std::endl;
+		std::cout<<"WARNING - key absent!"<<std::endl;
 		return 0;
-
-
 	}
 
 	double getLoadFactor(){
