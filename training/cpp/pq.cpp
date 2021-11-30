@@ -113,10 +113,91 @@ void testingPriorityQueues(){
 	}
 }
 
+void inPlaceHeapSort(int* pq, int N){
+
+	for (int i = 1; i<N; i++){
+
+		int cI = i;
+		while (cI > 0){
+			int pI = (cI-1)/2;
+
+			if (pq[cI] < pq[pI]){
+				std::swap(pq[cI], pq[pI]);
+				cI = pI;
+			}
+
+			else{
+				break;
+			}
+		}
+	}
+
+	int temp_size = N;
+
+	while (temp_size > 1){
+		std::swap(pq[0], pq[temp_size-1]);
+		temp_size--;
+
+		int pi = 0;
+
+		while (true){
+			int lci = 2*pi+1;
+			int rci = 2*pi+2;
+
+			int mini = pi;
+
+			if (lci < temp_size && pq[lci] < pq[mini]){
+				mini = lci;
+			}
+
+			if (rci < temp_size && pq[rci] < pq[mini]){
+				mini = rci;
+			}
+
+			if (pq[pi] == pq[mini]){
+				break;
+			}
+
+			std::swap(pq[pi], pq[mini]);
+			pi = mini;
+		}
+	}
+}
+
+void testingInPlaceMinHeapsort(){
+	std::cout<<"======Inplace Min Heap Sort======"<<std::endl;
+	int test[] = {1,5,0,8,2};
+	inPlaceHeapSort(test,5);
+
+	for (int i = 0; i<5; i++){
+		std::cout<<test[i]<<" ";
+	}
+
+	std::cout<<std::endl;
+}
+
+void kSortedArray(int* input, int n, int k){
+	
+}
+
+
 int main(){
 
 	std::cout<<"Hey priority queues!"<<std::endl;
 	testingPriorityQueues();
+
+	// std::cout<<"======K sorted array algorithm======"<<std::endl;
+	//
+	// int test[] = {10,12,6,7,9};
+	// kSortedArray(test, 5);
+	//
+	// for (int i = 0; i<5; i++){
+	// 	std::cout<<test[i]<<" ";
+	// }
+	//
+	// std::cout<<std::endl;
+
+	testingInPlaceMinHeapsort();
 
 
 	return 0;

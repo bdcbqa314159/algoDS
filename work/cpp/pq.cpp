@@ -197,14 +197,14 @@ void kSmallest(int* a, int n, int k){
 	// 	pq.push(a[i]);
 	// }
 
-	std::priority_queue<int, std::vector<int>, std::greater<int> > pq(a,a+n);
-
-	int l = 0;
-	while (l<3){
-		std::cout<<pq.top()<<" ";
-		pq.pop();
-		l++;
-	}
+	// std::priority_queue<int, std::vector<int>, std::greater<int> > pq(a,a+n);
+	//
+	// int l = 0;
+	// while (l<k){
+	// 	std::cout<<pq.top()<<" ";
+	// 	pq.pop();
+	// 	l++;
+	// }
 
 	std::cout<<std::endl;
 }
@@ -231,7 +231,7 @@ int main(){
 	}
 
 	std::cout<<std::endl;
-	std::cout<<"===Inplace Min Heap Sort inplace==="<<std::endl;
+	std::cout<<"===Inplace Min Heap Sort==="<<std::endl;
 
 	int test[] = {1,5,0,8,2};
 	inPlaceHeapSort(test,5);
