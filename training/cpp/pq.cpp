@@ -176,8 +176,69 @@ void testingInPlaceMinHeapsort(){
 	std::cout<<std::endl;
 }
 
+void inBuiltMaxHeap(){
+
+	std::cout<<"======Inbuilt Max Heap======"<<std::endl;
+	std::priority_queue<int> pq;
+
+	pq.push(16);
+	pq.push(1);
+	pq.push(7);
+	pq.push(167);
+	pq.push(7);
+	pq.push(45);
+	pq.push(32);
+
+	std::cout<<"Size: "<<pq.size()<<std::endl;
+	std::cout<<"Biggest element: "<<pq.top()<<std::endl;
+
+	while (!pq.empty()){
+		std::cout<<pq.top()<<std::endl;
+		pq.pop();
+	}
+
+	std::cout<<"Size: "<<pq.size()<<std::endl;
+
+}
+
 void kSortedArray(int* input, int n, int k){
-	
+
+	std::priority_queue<int> pq;
+
+	for (int i = 0; i<k; i++){
+		pq.push(input[i]);
+	}
+
+	int s = 0;
+
+	for (int i=k; i<n; i++){
+		input[s] = pq.top();
+		pq.pop();
+		s++;
+		pq.push(input[i]);
+	}
+
+	while (!pq.empty()){
+		input[s] = pq.top();
+		pq.pop();
+		s++;
+	}
+
+}
+
+void testingKSortedArray(){
+
+	std::cout<<"======K sorted array algorithm======"<<std::endl;
+
+	int test[] = {10,12,6,7,9};
+	kSortedArray(test, 5, 3);
+
+	for (int i = 0; i<5; i++){
+		std::cout<<test[i]<<" ";
+	}
+
+	std::cout<<std::endl;
+
 }
 
 
@@ -185,19 +246,11 @@ int main(){
 
 	std::cout<<"Hey priority queues!"<<std::endl;
 	testingPriorityQueues();
-
-	// std::cout<<"======K sorted array algorithm======"<<std::endl;
-	//
-	// int test[] = {10,12,6,7,9};
-	// kSortedArray(test, 5);
-	//
-	// for (int i = 0; i<5; i++){
-	// 	std::cout<<test[i]<<" ";
-	// }
-	//
-	// std::cout<<std::endl;
-
 	testingInPlaceMinHeapsort();
+	inBuiltMaxHeap();
+	testingKSortedArray();
+
+
 
 
 	return 0;
