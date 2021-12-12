@@ -3,8 +3,13 @@
 #include <queue>
 
 class PriorityQueue{
-
-
+	// PriorityQueue
+	// ~PriorityQueue
+	// bool isEmpty
+	// int getSize
+	// int getMinimum
+	// void insert
+	// int removeMin
 
 };
 
@@ -46,7 +51,7 @@ void kSortedArray(int* input, int n, int k){
 
 void kSmallest(int* a, int n, int k){
 
-	
+
 }
 
 void testingPriorityQueues(){
