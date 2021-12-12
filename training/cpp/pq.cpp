@@ -92,27 +92,6 @@ public:
 
 };
 
-void testingPriorityQueues(){
-	std::cout<<"======Training with priority queues======"<<std::endl;
-	PriorityQueue p;
-
-	p.insert(100);
-	p.insert(10);
-	p.insert(15);
-	p.insert(4);
-	p.insert(17);
-	p.insert(21);
-	p.insert(67);
-
-	std::cout<<"Size : "<<p.getSize()<<std::endl;
-	std::cout<<"Minimum : "<<p.getMinimum()<<std::endl;
-
-	while (!p.isEmpty()){
-		std::cout<<p.removeMin()<<std::endl;
-
-	}
-}
-
 void inPlaceHeapSort(int* pq, int N){
 
 	for (int i = 1; i<N; i++){
@@ -162,18 +141,6 @@ void inPlaceHeapSort(int* pq, int N){
 			pi = mini;
 		}
 	}
-}
-
-void testingInPlaceMinHeapsort(){
-	std::cout<<"======Inplace Min Heap Sort======"<<std::endl;
-	int test[] = {1,5,0,8,2};
-	inPlaceHeapSort(test,5);
-
-	for (int i = 0; i<5; i++){
-		std::cout<<test[i]<<" ";
-	}
-
-	std::cout<<std::endl;
 }
 
 void inBuiltMaxHeap(){
@@ -226,21 +193,6 @@ void kSortedArray(int* input, int n, int k){
 
 }
 
-void testingKSortedArray(){
-
-	std::cout<<"======K sorted array algorithm======"<<std::endl;
-
-	int test[] = {10,12,6,7,9};
-	kSortedArray(test, 5, 3);
-
-	for (int i = 0; i<5; i++){
-		std::cout<<test[i]<<" ";
-	}
-
-	std::cout<<std::endl;
-
-}
-
 void kSmallest(int* a, int n, int k){
 
 	std::priority_queue<int> pq;
@@ -290,12 +242,37 @@ void kSmallest(int* a, int n, int k){
 	// }
 }
 
-void testingKSmallestAlgorithm(){
+void testingPriorityQueues(){
+	std::cout<<"======Training with priority queues======"<<std::endl;
+	PriorityQueue p;
 
-	std::cout<<"======K smallest elements in an array======"<<std::endl;
-	int test[] = {10,12,6,7,9,56,0,34,1,2};
-	kSmallest(test, 10, 3);
+	p.insert(100);
+	p.insert(10);
+	p.insert(15);
+	p.insert(4);
+	p.insert(17);
+	p.insert(21);
+	p.insert(67);
 
+	std::cout<<"Size : "<<p.getSize()<<std::endl;
+	std::cout<<"Minimum : "<<p.getMinimum()<<std::endl;
+
+	while (!p.isEmpty()){
+		std::cout<<p.removeMin()<<std::endl;
+
+	}
+}
+
+void testingInPlaceMinHeapsort(){
+	std::cout<<"======Inplace Min Heap Sort======"<<std::endl;
+	int test[] = {1,5,0,8,2};
+	inPlaceHeapSort(test,5);
+
+	for (int i = 0; i<5; i++){
+		std::cout<<test[i]<<" ";
+	}
+
+	std::cout<<std::endl;
 }
 
 void inBuiltMinHeap(){
@@ -319,6 +296,29 @@ void inBuiltMinHeap(){
 	}
 
 	std::cout<<"Size: "<<pq.size()<<std::endl;
+
+}
+
+void testingKSortedArray(){
+
+	std::cout<<"======K sorted array algorithm======"<<std::endl;
+
+	int test[] = {10,12,6,7,9};
+	kSortedArray(test, 5, 3);
+
+	for (int i = 0; i<5; i++){
+		std::cout<<test[i]<<" ";
+	}
+
+	std::cout<<std::endl;
+
+}
+
+void testingKSmallestAlgorithm(){
+
+	std::cout<<"======K smallest elements in an array======"<<std::endl;
+	int test[] = {10,12,6,7,9,56,0,34,1,2};
+	kSmallest(test, 10, 3);
 
 }
 

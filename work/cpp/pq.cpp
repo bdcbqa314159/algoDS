@@ -3,6 +3,7 @@
 #include <queue>
 
 class PriorityQueue{
+
 	std::vector<int> pq;
 
 public:
@@ -14,8 +15,9 @@ public:
 
 	}
 
+
 	bool isEmpty(){
-		return pq.size() == 0;
+		return (pq.size() == 0);
 	}
 
 	int getSize(){
@@ -25,12 +27,11 @@ public:
 	int getMinimum(){
 
 		if (isEmpty()){
-			std::cout<<"--pq empty--"<<std::endl;
+			std::cout<<"--pq is empty--"<<std::endl;
 			return INT_MAX;
 		}
 
 		return pq[0];
-
 	}
 
 	void insert(int element){
@@ -38,12 +39,13 @@ public:
 		pq.push_back(element);
 		int cI = pq.size()-1;
 
-		while (cI > 0 ){
+		while (cI > 0){
 			int pI = (cI-1)/2;
 			if (pq[cI] < pq[pI]){
 				std::swap(pq[cI], pq[pI]);
 				cI = pI;
 			}
+
 			else{
 				break;
 			}
@@ -53,7 +55,7 @@ public:
 	int removeMin(){
 
 		if (isEmpty()){
-			std::cout<<"--pq empty--"<<std::endl;
+			std::cout<<"--pq is empty--"<<std::endl;
 			return INT_MAX;
 		}
 
@@ -61,9 +63,10 @@ public:
 		std::swap(pq[0], pq[pq.size()-1]);
 		pq.pop_back();
 
-		int pi = 0;
+		int pi=0;
 
 		while (true){
+
 			int lci = 2*pi+1;
 			int rci = 2*pi+2;
 			int mini = pi;
@@ -76,7 +79,7 @@ public:
 				mini = rci;
 			}
 
-			if (pq[pi] == pq[mini]){
+			if (pq[mini] == pq[pi]){
 				break;
 			}
 			std::swap(pq[pi], pq[mini]);
@@ -87,20 +90,21 @@ public:
 
 	}
 
-
 };
 
 void inPlaceHeapSort(int* pq, int N){
 
 	for (int i = 1; i<N; i++){
-		int cI = i;
 
-		while (cI > 0 ){
+		int cI = i;
+		while (cI > 0){
 			int pI = (cI-1)/2;
+
 			if (pq[cI] < pq[pI]){
 				std::swap(pq[cI], pq[pI]);
 				cI = pI;
 			}
+
 			else{
 				break;
 			}
@@ -110,7 +114,6 @@ void inPlaceHeapSort(int* pq, int N){
 	int temp_size = N;
 
 	while (temp_size > 1){
-
 		std::swap(pq[0], pq[temp_size-1]);
 		temp_size--;
 
@@ -119,6 +122,7 @@ void inPlaceHeapSort(int* pq, int N){
 		while (true){
 			int lci = 2*pi+1;
 			int rci = 2*pi+2;
+
 			int mini = pi;
 
 			if (lci < temp_size && pq[lci] < pq[mini]){
@@ -132,15 +136,40 @@ void inPlaceHeapSort(int* pq, int N){
 			if (pq[pi] == pq[mini]){
 				break;
 			}
+
 			std::swap(pq[pi], pq[mini]);
 			pi = mini;
 		}
 	}
+}
 
+void inBuiltMaxHeap(){
+
+	std::cout<<"======Inbuilt Max Heap======"<<std::endl;
+	std::priority_queue<int> pq;
+
+	pq.push(16);
+	pq.push(1);
+	pq.push(7);
+	pq.push(167);
+	pq.push(72);
+	pq.push(45);
+	pq.push(32);
+
+	std::cout<<"Size: "<<pq.size()<<std::endl;
+	std::cout<<"Biggest element: "<<pq.top()<<std::endl;
+
+	while (!pq.empty()){
+		std::cout<<pq.top()<<std::endl;
+		pq.pop();
+	}
+
+	std::cout<<"Size: "<<pq.size()<<std::endl;
 
 }
 
 void kSortedArray(int* input, int n, int k){
+
 	std::priority_queue<int> pq;
 
 	for (int i = 0; i<k; i++){
@@ -148,35 +177,41 @@ void kSortedArray(int* input, int n, int k){
 	}
 
 	int s = 0;
-	for (int i = k; i<n; i++){
+
+	for (int i=k; i<n; i++){
 		input[s] = pq.top();
 		pq.pop();
 		s++;
 		pq.push(input[i]);
 	}
 
-	while(!pq.empty()){
+	while (!pq.empty()){
 		input[s] = pq.top();
 		pq.pop();
 		s++;
 	}
+
 }
 
 void kSmallest(int* a, int n, int k){
 
-	//Two ways with max pq;
-	// std::priority_queue<int> pq;
-	//
-	// for (int i = 0; i<k; i++){
-	// 	pq.push(a[i]);
-	// }
-	//
-	// for (int i=k; i<n; i++){
-	// 	if (a[i] < pq.top()){
-	// 		pq.pop();
-	// 		pq.push(a[i]);
-	// 	}
-	// }
+	std::priority_queue<int> pq;
+
+	for (int i = 0; i<k; i++){
+		pq.push(a[i]);
+	}
+
+	for (int i = k; i<n; i++){
+		if (a[i]<pq.top()){
+			pq.pop();
+			pq.push(a[i]);
+		}
+	}
+
+	while (!pq.empty()){
+		std::cout<<pq.top()<<std::endl;
+		pq.pop();
+	}
 
 	// for (int i=0; i<n; i++){
 	// 	pq.push(a[i]);
@@ -205,14 +240,10 @@ void kSmallest(int* a, int n, int k){
 	// 	pq.pop();
 	// 	l++;
 	// }
-
-	std::cout<<std::endl;
 }
 
-int main(){
-
-	std::cout<<"Training with priority queues."<<std::endl;
-
+void testingPriorityQueues(){
+	std::cout<<"======Training with priority queues======"<<std::endl;
 	PriorityQueue p;
 
 	p.insert(100);
@@ -223,79 +254,82 @@ int main(){
 	p.insert(21);
 	p.insert(67);
 
-	std::cout<<p.getSize()<<std::endl;
-	std::cout<<p.getMinimum()<<std::endl;
+	std::cout<<"Size : "<<p.getSize()<<std::endl;
+	std::cout<<"Minimum : "<<p.getMinimum()<<std::endl;
 
 	while (!p.isEmpty()){
-		std::cout<<p.removeMin()<<" ";
+		std::cout<<p.removeMin()<<std::endl;
+
 	}
+}
 
-	std::cout<<std::endl;
-	std::cout<<"===Inplace Min Heap Sort==="<<std::endl;
-
+void testingInPlaceMinHeapsort(){
+	std::cout<<"======Inplace Min Heap Sort======"<<std::endl;
 	int test[] = {1,5,0,8,2};
 	inPlaceHeapSort(test,5);
 
 	for (int i = 0; i<5; i++){
 		std::cout<<test[i]<<" ";
 	}
+
 	std::cout<<std::endl;
+}
 
-	std::cout<<"===Max heap==="<<std::endl;
-	std::priority_queue<int> pq; //Max Heap here
+void inBuiltMinHeap(){
 
+	std::cout<<"======Inbuilt Min Heap======"<<std::endl;
+	std::priority_queue<int, std::vector<int>, std::greater<int> > pq;
 	pq.push(16);
 	pq.push(1);
-	pq.push(167);
 	pq.push(7);
+	pq.push(167);
+	pq.push(71);
 	pq.push(45);
 	pq.push(32);
 
 	std::cout<<"Size: "<<pq.size()<<std::endl;
-	std::cout<<"Biggest element: "<<pq.top()<<std::endl;
+	std::cout<<"Smallest element: "<<pq.top()<<std::endl;
 
-	while(!pq.empty()){
+	while (!pq.empty()){
 		std::cout<<pq.top()<<std::endl;
 		pq.pop();
 	}
 
 	std::cout<<"Size: "<<pq.size()<<std::endl;
 
-	std::cout<<"===K sorted array algorithm==="<<std::endl;
+}
 
-	int test1[] = {10,12,6,7,9};
-	kSortedArray(test1, 5, 3);
+void testingKSortedArray(){
+
+	std::cout<<"======K sorted array algorithm======"<<std::endl;
+
+	int test[] = {10,12,6,7,9};
+	kSortedArray(test, 5, 3);
 
 	for (int i = 0; i<5; i++){
-		std::cout<<test1[i]<<" ";
+		std::cout<<test[i]<<" ";
 	}
+
 	std::cout<<std::endl;
 
-	std::cout<<"===K smallest elements in an array algorithm==="<<std::endl;
+}
 
-	int test2[] = {10,12,6,7,9,56,0,34,1,2};
-	kSmallest(test2, 10, 3);
+void testingKSmallestAlgorithm(){
 
-	std::cout<<"===Min heap==="<<std::endl;
-	std::priority_queue<int, std::vector<int>, std::greater<int> > pq2; //Min Heap;
+	std::cout<<"======K smallest elements in an array======"<<std::endl;
+	int test[] = {10,12,6,7,9,56,0,34,1,2};
+	kSmallest(test, 10, 3);
 
-	pq2.push(16);
-	pq2.push(1);
-	pq2.push(167);
-	pq2.push(7);
-	pq2.push(45);
-	pq2.push(32);
+}
 
-	std::cout<<"Size: "<<pq2.size()<<std::endl;
-	std::cout<<"Smallest element: "<<pq2.top()<<std::endl;
+int main(){
 
-	while(!pq2.empty()){
-		std::cout<<pq2.top()<<std::endl;
-		pq2.pop();
-	}
-
-	std::cout<<"Size: "<<pq2.size()<<std::endl;
-
+	std::cout<<"======Working with priority queues======"<<std::endl;
+	testingPriorityQueues();
+	testingInPlaceMinHeapsort();
+	inBuiltMaxHeap();
+	testingKSortedArray();
+	inBuiltMinHeap();
 
 	return 0;
 }
