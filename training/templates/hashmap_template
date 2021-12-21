@@ -1,272 +1,250 @@
-#include <iostream>
-#include <unordered_map>
-#include <map>
-#include <string>
-#include <vector>
+// #include <iostream>
+// #include <unordered_map>
+// #include <map>
+// #include <string>
+// #include <vector>
 
-//Mini interface with inbuilt hashmaps
+// //Mini interface with inbuilt hashmaps
 
-bool isPresent(std::unordered_map<std::string, int> u_map, std::string key){
+// bool isPresent(std::unordered_map<std::string, int> u_map, std::string key){
 
+// }
 
-}
+// void isPresentInterface(std::unordered_map<std::string, int> u_map, std::string key){
 
-void isPresentInterface(std::unordered_map<std::string, int> u_map, std::string key){
+// }
 
+// void givingSize(std::unordered_map<std::string, int> u_map){
 
+// }
 
-}
+// void updatingHashMap(std::unordered_map<std::string, int> u_map, std::string key, int value){
 
-void givingSize(std::unordered_map<std::string, int> u_map){
+// }
 
-}
+// void erasingValues(std::unordered_map<std::string, int> u_map, std::string key){
 
-void updatingHashMap(std::unordered_map<std::string, int> u_map, std::string key, int value){
+// }
 
+// void usageInbuiltHashMap(){
 
-}
+// 	std::cout<<"======= Inbuilt hashmaps : unordered_map ======"<<std::endl;
 
-void erasingValues(std::unordered_map<std::string, int> u_map, std::string key){
+// 	//insert needs pair data structure.
 
+// 	//we can use also [] as arrays & vectors
 
-}
+// 	//xyz not present, if we ask with .at we will have an exception if we ask
+// 	//with [] we will have 0 value and the key will be added.
+// 	// std::cout<<key2<<" : "<<myMap.at(key2)<<std::endl;
 
-void usageInbuiltHashMap(){
+// 	//checking if a key is present
 
-	std::cout<<"======= Inbuilt hashmaps : unordered_map ======"<<std::endl;
+// 	isPresentInterface(myMap, key3);
+// 	isPresentInterface(myMap, key2);
 
+// 	//updating values
+// 	givingSize(myMap);
 
+// 	updatingHashMap(myMap, key2, 20);
+// 	updatingHashMap(myMap, "xcv", 20);
 
-	//insert needs pair data structure.
+// 	myMap.erase(key2);
+// 	givingSize(myMap);
+// 	isPresentInterface(myMap, key2);
 
+// }
 
-	//we can use also [] as arrays & vectors
+// //Remove duplicates algorithm
 
-	//xyz not present, if we ask with .at we will have an exception if we ask
-	//with [] we will have 0 value and the key will be added.
-	// std::cout<<key2<<" : "<<myMap.at(key2)<<std::endl;
+// std::vector<int> removeDuplicates(int* arr, int size){
+// 	std::vector<int> ans;
 
-	//checking if a key is present
+// 	return ans;
 
-	isPresentInterface(myMap, key3);
-	isPresentInterface(myMap, key2);
+// }
 
-	//updating values
-	givingSize(myMap);
+// void removeDuplicates(){
+// 	std::cout<<"====== Remove duplicates algorithm ======"<<std::endl;
+// 	int a[] = {1, 2, 4, 5, 6, 1, 1, 2, 3, 3, 2, 5, 6, 6, 1};
+// 	std::vector<int> ans = removeDuplicates(a, 15);
+// 	for (int i = 0 ; i<ans.size(); i++){
+// 		std::cout<<ans[i]<<" ";
+// 	}
+// 	std::cout<<std::endl;
+// }
 
-	updatingHashMap(myMap, key2, 20);
-	updatingHashMap(myMap, "xcv", 20);
+// //Iterators
+// void iteratorsUMap(){
+// 	std::cout<<"====== Iterators with unordered_map ======"<<std::endl;
+// 	std::unordered_map<std::string, int> myMap;
+// 	myMap["abc"] = 1;
+// 	myMap["abc1"] = -23;
+// 	myMap["abc2"] = 190;
+// 	myMap["abc3"] = 11;
+// 	myMap["abc4"] = 5;
 
-	myMap.erase(key2);
-	givingSize(myMap);
-	isPresentInterface(myMap, key2);
+// 	//Usage of iterator
 
-}
+// 	//Find & erase with iterator
 
-//Remove duplicates algorithm
+// 	std::string key = "abc1";
 
-std::vector<int> removeDuplicates(int* arr, int size){
-	std::vector<int> ans;
+// 	std::cout<<"Is present with iterators."<<std::endl;
+// 	//Find with iterator
+// 	if (){
+// 		std::cout<<key<<" not present."<<std::endl;
+// 	}
 
+// 	else{
+// 		std::cout<<key<<" is present."<<std::endl;
+// 		std::cout<<key<<" : "<<myMap[key]<<std::endl;
+// 	}
 
+// 	//Erase all the u_map
 
-	return ans;
+// 	//Usage of iterator
 
-}
+// 	givingSize(myMap);
+// }
 
-void removeDuplicates(){
-	std::cout<<"====== Remove duplicates algorithm ======"<<std::endl;
-	int a[] = {1, 2, 4, 5, 6, 1, 1, 2, 3, 3, 2, 5, 6, 6, 1};
-	std::vector<int> ans = removeDuplicates(a, 15);
-	for (int i = 0 ; i<ans.size(); i++){
-		std::cout<<ans[i]<<" ";
-	}
-	std::cout<<std::endl;
-}
+// void iteratorsMap(){
 
-//Iterators
-void iteratorsUMap(){
-	std::cout<<"====== Iterators with unordered_map ======"<<std::endl;
-	std::unordered_map<std::string, int> myMap;
-	myMap["abc"] = 1;
-	myMap["abc1"] = -23;
-	myMap["abc2"] = 190;
-	myMap["abc3"] = 11;
-	myMap["abc4"] = 5;
+// 	std::cout<<"====== Iterators with map ======"<<std::endl;
+// 	std::map<std::string, int> myMap1;
+// 	myMap1["abc"] = 1;
+// 	myMap1["abc1"] = -23;
+// 	myMap1["abc2"] = 190;
+// 	myMap1["abc3"] = 11;
+// 	myMap1["abc4"] = 5;
 
-	//Usage of iterator
+// 	//Usage of iterator
+// }
 
-	//Find & erase with iterator
+// void iteratorsVector(){
 
-	std::string key = "abc1";
+// 	std::cout<<"====== Iterators with vectors ======"<<std::endl;
+// 	std::vector<int> vec;
+// 	vec.push_back(10);
+// 	vec.push_back(34);
+// 	vec.push_back(31);
+// 	vec.push_back(90);
+// 	vec.push_back(-109);
 
-	std::cout<<"Is present with iterators."<<std::endl;
-	//Find with iterator
-	if (){
-		std::cout<<key<<" not present."<<std::endl;
-	}
+// 	//Usage of iterator
+// }
 
-	else{
-		std::cout<<key<<" is present."<<std::endl;
-		std::cout<<key<<" : "<<myMap[key]<<std::endl;
-	}
+// void iterators(){
+// 	std::cout<<"====== Iterators with unordered_map / map / vectors ======"<<std::endl;
 
-	//Erase all the u_map
+// 	iteratorsUMap();
+// 	iteratorsMap();
+// 	iteratorsVector();
 
-	//Usage of iterator
+// }
 
-	givingSize(myMap);
-}
+// void autoKeyWord(){
 
-void iteratorsMap(){
+// 	//Auto key word:
+// 	// auto iterator it1;
+// 	// std::map<std::string, int>::iterator it1;
+// 	// Good but need to be used with parcimony
+// 	auto test = 12;
+// 	std::cout<<test<<std::endl;
 
-	std::cout<<"====== Iterators with map ======"<<std::endl;
-	std::map<std::string, int> myMap1;
-	myMap1["abc"] = 1;
-	myMap1["abc1"] = -23;
-	myMap1["abc2"] = 190;
-	myMap1["abc3"] = 11;
-	myMap1["abc4"] = 5;
+// }
 
-	//Usage of iterator
-}
+// //Implementing our hashmap
 
-void iteratorsVector(){
+// template <class T>
+// class MapNode{
 
-	std::cout<<"====== Iterators with vectors ======"<<std::endl;
-	std::vector<int> vec;
-	vec.push_back(10);
-	vec.push_back(34);
-	vec.push_back(31);
-	vec.push_back(90);
-	vec.push_back(-109);
+// 	//Constructor & Destructor
 
-	//Usage of iterator
-}
+// };
 
-void iterators(){
-	std::cout<<"====== Iterators with unordered_map / map / vectors ======"<<std::endl;
+// template <class T>
+// class MyMap{
 
-	iteratorsUMap();
-	iteratorsMap();
-	iteratorsVector();
+// 	int getBucketIndex(std::string key){
 
-}
+// 	}
 
-void autoKeyWord(){
+// 	void rehash(){
 
-	//Auto key word:
-	// auto iterator it1;
-	// std::map<std::string, int>::iterator it1;
-	// Good but need to be used with parcimony
-	auto test = 12;
-	std::cout<<test<<std::endl;
+// 	}
 
-}
+// 	//Constructor & Destructor
 
-//Implementing our hashmap
+// 	int size(){
 
-template <class T>
-class MapNode{
+// 	}
 
-	//Constructor & Destructor
+// 	T getValue(std::string key){
 
-};
+// 	}
 
-template <class T>
-class MyMap{
+// 	void insert(std::string key, T value){
 
+// 	}
 
+// 	T remove(std::string key){
 
-	int getBucketIndex(std::string key){
+// 	}
 
+// 	double getLoadFactor(){
 
-	}
+// 	}
 
-	void rehash(){
+// };
 
+// void testingMyMapClass(){
+// 	std::cout<<"====== MyMap class testing ======"<<std::endl;
 
+// 	MyMap<int> ourMap;
 
-	}
+// 	for (int i = 0; i<10; i++){
+// 		char c = '0'+i;
+// 		std::string key = "abc";
+// 		key += c;
+// 		int value = i+1;
+// 		ourMap.insert(key, value);
+// 		std::cout<<"current load factor: "<<ourMap.getLoadFactor()<<std::endl;
+// 	}
 
+// 	for (int i = 0; i<10; i++){
+// 		char c = '0'+i;
+// 		std::string key = "abc";
+// 		key += c;
 
+// 		std::cout<<key<<" : "<<ourMap.getValue(key)<<std::endl;
+// 	}
 
-	//Constructor & Destructor
+// 	std::cout<<"Size : "<<ourMap.size()<<std::endl;
+// 	std::cout<<"Removing abc1 & abc6"<<std::endl;
+// 	ourMap.remove("abc1");
+// 	ourMap.remove("abc6");
 
+// 	for (int i = 0; i<10; i++){
+// 		char c = '0'+i;
+// 		std::string key = "abc";
+// 		key += c;
 
-	int size(){
+// 		std::cout<<key<<" : "<<ourMap.getValue(key)<<std::endl;
+// 	}
 
-	}
+// 	std::cout<<"Size : "<<ourMap.size()<<std::endl;
 
-	T getValue(std::string key){
+// }
 
-	}
+// int main(){
 
-	void insert(std::string key, T value){
+// 	std::cout<<"Training with hashmaps..."<<std::endl;
+// 	usageInbuiltHashMap();
+// 	removeDuplicates();
+// 	iterators();
+// 	autoKeyWord();
+// 	testingMyMapClass();
 
-	}
-
-	T remove(std::string key){
-
-
-
-	}
-
-	double getLoadFactor(){
-
-	}
-
-};
-
-void testingMyMapClass(){
-	std::cout<<"====== MyMap class testing ======"<<std::endl;
-
-	MyMap<int> ourMap;
-
-	for (int i = 0; i<10; i++){
-		char c = '0'+i;
-		std::string key = "abc";
-		key += c;
-		int value = i+1;
-		ourMap.insert(key, value);
-		std::cout<<"current load factor: "<<ourMap.getLoadFactor()<<std::endl;
-	}
-
-	for (int i = 0; i<10; i++){
-		char c = '0'+i;
-		std::string key = "abc";
-		key += c;
-
-		std::cout<<key<<" : "<<ourMap.getValue(key)<<std::endl;
-	}
-
-	std::cout<<"Size : "<<ourMap.size()<<std::endl;
-	std::cout<<"Removing abc1 & abc6"<<std::endl;
-	ourMap.remove("abc1");
-	ourMap.remove("abc6");
-
-	for (int i = 0; i<10; i++){
-		char c = '0'+i;
-		std::string key = "abc";
-		key += c;
-
-		std::cout<<key<<" : "<<ourMap.getValue(key)<<std::endl;
-	}
-
-	std::cout<<"Size : "<<ourMap.size()<<std::endl;
-
-}
-
-
-int main(){
-
-	std::cout<<"Training with hashmaps..."<<std::endl;
-	usageInbuiltHashMap();
-	removeDuplicates();
-	iterators();
-	autoKeyWord();
-	testingMyMapClass();
-
-
-	return 0;
-}
+// 	return 0;
+// }

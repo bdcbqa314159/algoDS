@@ -15,7 +15,6 @@ class PriorityQueue{
 
 void inPlaceHeapSort(int* pq, int N){
 
-
 }
 
 void inBuiltMaxHeap(){
@@ -45,12 +44,9 @@ void inBuiltMaxHeap(){
 
 void kSortedArray(int* input, int n, int k){
 
-
-
 }
 
 void kSmallest(int* a, int n, int k){
-
 
 }
 

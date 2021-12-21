@@ -11,9 +11,9 @@ class PriorityQueue{
 	// void insert
 	// int removeMin
 
-public:
 	std::vector<int> pq;
 
+public:
 	PriorityQueue(){
 
 	}
@@ -23,7 +23,7 @@ public:
 	}
 
 	bool isEmpty(){
-		return (pq.size()==0);
+		return (pq.size() == 0);
 	}
 
 	int getSize(){
@@ -35,24 +35,25 @@ public:
 			std::cout<<"--pq is empty--"<<std::endl;
 			return INT_MAX;
 		}
+
 		return pq[0];
 	}
 
 	void insert(int element){
-
 		pq.push_back(element);
 		int cI = pq.size()-1;
 
-		while (cI > 0){
+		while (cI>0){
 			int pI = (cI-1)/2;
-			if (pq[cI]<pq[pI]){
-				std::swap(pq[cI], pq[pI]);
+
+			if (pq[pI]>pq[cI]){
+				std::swap(pq[pI], pq[cI]);
 				cI = pI;
 			}
+
 			else{
 				break;
 			}
-
 		}
 	}
 
@@ -69,25 +70,27 @@ public:
 		int pi = 0;
 
 		while (true){
+
 			int lci = 2*pi+1;
 			int rci = 2*pi+2;
 			int mini = pi;
 
-			if (lci<pq.size() && pq[lci]<pq[mini]){
+			if (lci< pq.size() && pq[lci]<pq[mini]){
 				mini = lci;
 			}
 
-			if (rci <pq.size()&& pq[rci]<pq[mini]){
+			if (rci<pq.size()&& pq[rci]<pq[mini]){
 				mini = rci;
 			}
 
-			if (pq[mini] == pq[pi]){
+			if (pq[mini]==pq[pi]){
 				break;
 			}
 
-			std::swap(pq[mini], pq[pi]);
+			std::swap(pq[pi], pq[mini]);
 			pi = mini;
 		}
+
 		return ans;
 	}
 
@@ -101,8 +104,8 @@ void inPlaceHeapSort(int* pq, int N){
 		while (cI>0){
 			int pI = (cI-1)/2;
 
-			if (pq[cI]<pq[pI]){
-				std::swap(pq[cI], pq[pI]);
+			if (pq[pI]>pq[cI]){
+				std::swap(pq[pI], pq[cI]);
 				cI = pI;
 			}
 
@@ -110,37 +113,38 @@ void inPlaceHeapSort(int* pq, int N){
 				break;
 			}
 		}
-	}
 
-	int temp_size = N;
+		int temp_size = N;
 
-	while (temp_size>1){
-		std::swap(pq[0], pq[temp_size-1]);
-		temp_size--;
+		while (temp_size >1){
+			std::swap(pq[0], pq[temp_size-1]);
+			temp_size--;
 
-		int pi = 0;
+			int pi = 0;
 
-		while (true){
+			while (true){
+				int lci = 2*pi+1;
+				int rci = 2*pi+2;
 
-			int lci = 2*pi+1;
-			int rci = 2*pi+2;
-			int mini = pi;
+				int mini = pi;
 
-			if (lci<temp_size && pq[lci]<pq[mini]){
-				mini = lci;
+				if (lci <temp_size && pq[lci]<pq[mini]){
+					mini = lci;
+				}
+
+				if (rci <temp_size && pq[rci]<pq[mini]){
+					mini = rci;
+				}
+
+				if (pq[mini]==pq[pi]){
+					break;
+				}
+
+				std::swap(pq[mini], pq[pi]);
+				pi = mini;
 			}
-
-			if (rci<temp_size && pq[rci]< pq[mini]){
-				mini = rci;
-			}
-
-			if (pq[mini]==pq[pi]){
-				break;
-			}
-
-			std::swap(pq[pi], pq[mini]);
-			pi = mini;
 		}
+
 	}
 }
 
@@ -179,7 +183,7 @@ void kSortedArray(int* input, int n, int k){
 
 	int s = 0;
 
-	for (int i = k; i<n; i++){
+	for (int i =k; i<n; i++){
 		input[s] = pq.top();
 		pq.pop();
 		s++;
@@ -197,8 +201,7 @@ void kSortedArray(int* input, int n, int k){
 void kSmallest(int* a, int n, int k){
 
 	std::priority_queue<int> pq;
-
-	for (int i =0; i<k; i++){
+	for (int i = 0; i<k; i++){
 		pq.push(a[i]);
 	}
 
@@ -209,11 +212,10 @@ void kSmallest(int* a, int n, int k){
 		}
 	}
 
-	while(!pq.empty()){
+	while (!pq.empty()){
 		std::cout<<pq.top()<<std::endl;
 		pq.pop();
 	}
-
 
 }
 
