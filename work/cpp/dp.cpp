@@ -342,6 +342,8 @@ int knapsackSolution2(std::vector<int> &prices, std::vector<int> &weights, int W
 
 			else{
 				int include = prices[i-1]+dp[i-1][j-weights[i-1]];
+				// in case we have infinite number of items
+				// int include = prices[i-1]+dp[i][j-weights[i-1]];
 				int exclude = dp[i-1][j];
 				dp[i][j] = std::max(include, exclude);
 			}
