@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <algorithm>
 
 int fibonacci1(int n){
@@ -61,7 +62,7 @@ int minSteps1(int n){
 
 }
 
-int helper(int n, int* ans){
+int helper1(int n, int* ans){
 	if (n<=1){
 		return 0;
 	}
@@ -72,14 +73,14 @@ int helper(int n, int* ans){
 
 	int y(INT_MAX), z(INT_MAX);
 
-	int x = helper(n-1, ans);
+	int x = helper1(n-1, ans);
 
 	if (n%2 == 0){
-		y = helper(n/2, ans);
+		y = helper1(n/2, ans);
 	}
 
 	if (n%3 == 0){
-		z = helper(n/3,ans);
+		z = helper1(n/3,ans);
 	}
 	int output = std::min(x, std::min(y,z))+1;
 	ans[n] = output;
@@ -93,7 +94,7 @@ int minSteps2(int n){
 		ans[i] = -1;
 	}
 
-	return helper(n, ans);
+	return helper1(n, ans);
 
 }
 
@@ -148,7 +149,6 @@ int minSteps4(int n){
 	return ans;
 }
 
-
 int climbingStairsGeneralized(int n, int k){
 
 	int *dp = new int(n+1);
@@ -171,7 +171,6 @@ int climbingStairsGeneralized(int n, int k){
 
 }
 
-
 int climbingStairs2(int n){
 
 	int *dp = new int(n+1);
@@ -187,8 +186,6 @@ int climbingStairs2(int n){
 
 }
 
-
-
 int climbingStairs1(int n){
 	if (n == 0 || n==1){
 		return 1;
@@ -197,7 +194,56 @@ int climbingStairs1(int n){
 	return climbingStairs1(n-1)+climbingStairs1(n-2);
 }
 
+int helper2(std::string text1, int i, std::string text2, int j){
 
+	if (i == text1.size() || j == text2.size()){
+		return 0;
+		//we reach the end of the string.
+	}
+
+	if (text1[i] == text2[j]){
+		return 1+helper2(text1, i+1, text2, j+1);
+	}
+
+	else{
+		return std::max(helper2(text1,i+1, text2,j), helper2(text1,i, text2, j+1));
+	}
+}
+
+
+int longestCommonSubsequence1(std::string text1, std::string text2){
+	return helper2(text1, 0, text2, 0);
+}
+
+int longestCommonSubsequence2(std::string text1, std::string text2){
+
+	int m = text1.size();
+	int n = text2.size();
+
+
+	int dp[m+1][n+1];
+
+	for (int i = 0; i<=m; i++){
+		for (int j = 0; j<=n; j++){
+
+			if (i == 0 || j == 0){
+				dp[i][j] = 0;
+			}
+
+			else if (text1[i-1] == text2[i-1]){
+				dp[i][j] = 1+dp[i-1][j-1];
+			}
+
+			else{
+				dp[i][j] = std::max(dp[i-1][j], dp[i][j-1]);
+			}
+		}
+	}
+
+	return dp[m][n];
+
+
+}
 
 void testingFibonacci(){
 
@@ -230,10 +276,7 @@ void testingMinimumStepsToOne(){
 
 }
 
-int main(){
-	std::cout<<"Working with dp :)"<<std::endl;
-
-
+void testingClimbingStairs(){
 	std::cout<<"===Climbing Stairs==="<<std::endl;
 	int n;
 	std::cin>>n;
@@ -242,6 +285,20 @@ int main(){
 	std::cout<<"n = "<<n<<" --> "<<climbingStairsGeneralized(n, 2)<<std::endl;
 	std::cout<<"n = "<<n<<" --> "<<climbingStairs2(n)<<std::endl;
 	std::cout<<"n = "<<n<<" --> "<<climbingStairs1(n)<<std::endl;
+}
+
+int main(){
+	std::cout<<"Working with dp :)"<<std::endl;
+
+	std::string st1 = "apple";
+	std::string st2 = "ample";
+	int ans1 = longestCommonSubsequence1(st1, st2);
+	int ans2 = longestCommonSubsequence2(st1, st2);
+
+	std::cout<<"For "<<st1<<" and "<<st2<<" we have a length of "<<ans1<<std::endl;
+	std::cout<<" for the smallest common subsequence."<<std::endl;
+	std::cout<<"With dp, for "<<st1<<" and "<<st2<<" we have a length of "<<ans2<<std::endl;
+	std::cout<<" for the smallest common subsequence."<<std::endl;
 
 
 	return 0;
