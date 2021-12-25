@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
 
 int fibonacci1(int n){
 	if (n == 0 || n == 1){
@@ -300,6 +301,58 @@ int editDistance2(std::string s1, std::string s2){
 	return dp[m][n];
 }
 
+
+int knapsack1(int n, int W, std::vector<int> &prices, std::vector<int>& weights){
+	if (n == 0 || W == 0){
+		return 0;
+	}
+
+	if (weights[n-1] > W){
+		return knapsack1(n-1, W, prices, weights);
+	}
+
+	else{
+		int include = prices[n-1]+knapsack1(n-1, W-weights[n-1], prices, weights);
+		// in case we have several items by item
+		// int include = prices[n-1]+knapsack1(n, W-weights[n-1], prices, weights);
+		int exclude = knapsack1(n-1, W, prices, weights);
+		return std::max(include, exclude);
+	}
+}
+
+int knapsackSolution1(std::vector<int> &prices, std::vector<int> &weights, int W){
+
+	return knapsack1(prices.size(), W, prices, weights);
+}
+
+int knapsackSolution2(std::vector<int> &prices, std::vector<int> &weights, int W){
+
+	int n = prices.size();
+	int dp[n+1][W+1];
+
+	for (int i =0; i<=n; i++){
+		for(int j =0; j<=W; j++){
+			if (i==0||j==0){
+				dp[i][j] = 0;
+			}
+
+			else if(weights[i-1]>j){
+				dp[i][j] = dp[i-1][j];
+			}
+
+			else{
+				int include = prices[i-1]+dp[i-1][j-weights[i-1]];
+				int exclude = dp[i-1][j];
+				dp[i][j] = std::max(include, exclude);
+			}
+		}
+	}
+	return dp[n][W];
+}
+
+
+
+
 void testingFibonacci(){
 
 	std::cout<<"===Recursive Fibonacci==="<<std::endl;
@@ -355,9 +408,7 @@ void testingLongestCommonSubsequence(){
 	std::cout<<" for the smallest common subsequence."<<std::endl;
 }
 
-int main(){
-	std::cout<<"Working with dp :)"<<std::endl;
-
+void testingSmallestCommonSequence(){
 	std::string st1 = "horse";
 	std::string st2 = "ros";
 	int ans1 = editDistance1(st1, st2);
@@ -367,6 +418,27 @@ int main(){
 	std::cout<<" for edit distance"<<std::endl;
 	std::cout<<"With dp, for "<<st1<<" and "<<st2<<" we have a length of "<<ans2<<std::endl;
 	std::cout<<" for the smallest common subsequence."<<std::endl;
+}
+
+int main(){
+	std::cout<<"Working with dp :)"<<std::endl;
+
+	std::vector<int> prices;
+	prices.push_back(60);
+	prices.push_back(100);
+	prices.push_back(120);
+
+	std::vector<int> weights;
+	weights.push_back(10);
+	weights.push_back(20);
+	weights.push_back(30);
+
+	int W = 50;
+
+	std::cout<<"Knapsack: "<< knapsackSolution1(prices, weights, W)<<std::endl;
+	std::cout<<"Knapsack dp : "<< knapsackSolution2(prices, weights, W)<<std::endl;
+
+
 
 
 
