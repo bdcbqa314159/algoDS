@@ -245,6 +245,61 @@ int longestCommonSubsequence2(std::string text1, std::string text2){
 
 }
 
+int mD1(std::string s1, int m, std::string s2, int n){
+	if (m==0){
+		return n;
+	}
+
+	if (n ==0){
+		return m;
+	}
+
+	if (s1[m-1] == s2[n-1]){
+		return mD1(s1, m-1, s2, n-1);
+	}
+
+	int insertion = mD1(s1, m, s2, n-1);
+	int deletion = mD1(s1, m-1, s2, n);
+	int replacement = mD1(s1, m-1, s2, n-1);
+
+	return 1+std::min(insertion, std::min(deletion, replacement));
+}
+
+int editDistance1(std::string s1, std::string s2){
+	return mD1(s1, s1.size(), s2, s2.size());
+}
+
+int editDistance2(std::string s1, std::string s2){
+	int m = s1.size();
+	int n = s2.size();
+
+	int dp[m+1][n+1];
+
+	for (int i = 0; i<=m; i++){
+		for (int j = 0; j<=n; j++){
+			if (i==0){
+				dp[i][j] = j;
+			}
+
+			else if (j == 0){
+				dp[i][j] = i;
+			}
+
+			else if (s1[i-1]==s2[j-1]){
+				dp[i][j] = dp[i-1][j-1];
+			}
+
+			else{
+				int insertion = dp[i][j-1];
+				int deletion = dp[i-1][j];
+				int replace = dp[i-1][j-1];
+				dp[i][j] = 1+std::min(insertion,std::min(deletion, replace));
+			}
+		}
+	}
+	return dp[m][n];
+}
+
 void testingFibonacci(){
 
 	std::cout<<"===Recursive Fibonacci==="<<std::endl;
@@ -287,8 +342,7 @@ void testingClimbingStairs(){
 	std::cout<<"n = "<<n<<" --> "<<climbingStairs1(n)<<std::endl;
 }
 
-int main(){
-	std::cout<<"Working with dp :)"<<std::endl;
+void testingLongestCommonSubsequence(){
 
 	std::string st1 = "apple";
 	std::string st2 = "ample";
@@ -299,6 +353,21 @@ int main(){
 	std::cout<<" for the smallest common subsequence."<<std::endl;
 	std::cout<<"With dp, for "<<st1<<" and "<<st2<<" we have a length of "<<ans2<<std::endl;
 	std::cout<<" for the smallest common subsequence."<<std::endl;
+}
+
+int main(){
+	std::cout<<"Working with dp :)"<<std::endl;
+
+	std::string st1 = "horse";
+	std::string st2 = "ros";
+	int ans1 = editDistance1(st1, st2);
+	int ans2 = editDistance2(st1, st2);
+
+	std::cout<<"For "<<st1<<" and "<<st2<<" we have a length of "<<ans1<<std::endl;
+	std::cout<<" for edit distance"<<std::endl;
+	std::cout<<"With dp, for "<<st1<<" and "<<st2<<" we have a length of "<<ans2<<std::endl;
+	std::cout<<" for the smallest common subsequence."<<std::endl;
+
 
 
 	return 0;
