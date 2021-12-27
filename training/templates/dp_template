@@ -212,8 +212,10 @@ int main(){
 
 	// testingFibonacci();
 	// testingMinimumStepsToOne();
-	// testingLongestCommonSubsequence();
-	testingSmallestCommonSequence();
+	// testingClimbingStairs();
+ 	// testingLongestCommonSubsequence();
+	// testingSmallestCommonSequence();
+	testingKnapsack01();
 
 	return 0;
 }
