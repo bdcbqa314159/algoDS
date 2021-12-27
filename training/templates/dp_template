@@ -9,9 +9,16 @@ int fibonacci1(int n){
 
 int fibonacci2(int n, int* arr){
 
+
+
 }
 
 int fibonacci3(int n){
+
+
+}
+
+int fibonacci4(int n){
 
 }
 
@@ -24,11 +31,10 @@ int minSteps1(int n){
 
 int helper1(int n, int* ans){
 
+
 }
 
 int minSteps2(int n){
-
-	//needs helper
 
 
 }
@@ -36,16 +42,17 @@ int minSteps2(int n){
 int minSteps3(int n){
 
 
+
 }
 
 int minSteps4(int n){
+
 
 
 }
 
 //Number of ways to reach the top with at most a k size jump
 int climbingStairsGeneralized(int n, int k){
-
 
 
 }
@@ -57,100 +64,57 @@ int climbingStairs2(int n){
 
 int climbingStairs1(int n){
 
+
 }
 
 
 //Part2
 int helper2(std::string text1, int i, std::string text2, int j){
 
-	if (i == text1.size() || j == text2.size()){
-		return 0;
-		//we reach the end of the string.
-	}
 
-	if (text1[i] == text2[j]){
-		return 1+helper2(text1, i+1, text2, j+1);
-	}
 
-	else{
-		return std::max(helper2(text1,i+1, text2,j), helper2(text1,i, text2, j+1));
-	}
 }
 
 
 int longestCommonSubsequence1(std::string text1, std::string text2){
-	return helper2(text1, 0, text2, 0);
+
 }
 
 int longestCommonSubsequence2(std::string text1, std::string text2){
-
-	int m = text1.size();
-	int n = text2.size();
-
-
-	int dp[m+1][n+1];
-
-	for (int i = 0; i<=m; i++){
-		for (int j = 0; j<=n; j++){
-
-			if (i == 0 || j == 0){
-				dp[i][j] = 0;
-			}
-
-			else if (text1[i-1] == text2[i-1]){
-				dp[i][j] = 1+dp[i-1][j-1];
-			}
-
-			else{
-				dp[i][j] = std::max(dp[i-1][j], dp[i][j-1]);
-			}
-		}
-	}
-
-	return dp[m][n];
 
 
 }
 
 int mD1(std::string s1, int m, std::string s2, int n){
-	if (m==0){
-		return n;
-	}
 
-	if (n ==0){
-		return m;
-	}
 
-	if (s1[m-1] == s2[n-1]){
-		return mD1(s1, m-1, s2, n-1);
-	}
-
-	int insertion = mD1(s1, m, s2, n-1);
-	int deletion = mD1(s1, m-1, s2, n);
-	int replacement = mD1(s1, m-1, s2, n-1);
-
-	return 1+std::min(insertion, std::min(deletion, replacement));
 }
 
 int editDistance1(std::string s1, std::string s2){
-	return mD1(s1, s1.size(), s2, s2.size());
+
+
 }
 
 int editDistance2(std::string s1, std::string s2){
+
+
 
 }
 
 
 int knapsack1(int n, int W, std::vector<int> &prices, std::vector<int>& weights){
 
+
 }
 
 int knapsackSolution1(std::vector<int> &prices, std::vector<int> &weights, int W){
 
 
+
 }
 
 int knapsackSolution2(std::vector<int> &prices, std::vector<int> &weights, int W){
+
 
 
 }
@@ -167,6 +131,7 @@ void testingFibonacci(){
 	}
 
 	std::cout<<"For "<<n<<" fibonacci2("<<n<<")="<<fibonacci2(n,arr)<<std::endl;
+	std::cout<<"For "<<n<<" fibonacci4("<<n<<")="<<fibonacci4(n)<<std::endl;
 	std::cout<<"For "<<n<<" fibonacci3("<<n<<")="<<fibonacci3(n)<<std::endl;
 	std::cout<<"For "<<n<<" fibonacci1("<<n<<")="<<fibonacci1(n)<<std::endl;
 
@@ -222,8 +187,7 @@ void testingSmallestCommonSequence(){
 	std::cout<<" for the smallest common subsequence."<<std::endl;
 }
 
-int main(){
-	std::cout<<"Working with dp :)"<<std::endl;
+void testingKnapsack01(){
 
 	std::vector<int> prices;
 	prices.push_back(60);
@@ -241,8 +205,15 @@ int main(){
 	std::cout<<"Knapsack dp : "<< knapsackSolution2(prices, weights, W)<<std::endl;
 
 
+}
 
+int main(){
+	std::cout<<"Working with dp :)"<<std::endl;
 
+	// testingFibonacci();
+	// testingMinimumStepsToOne();
+	// testingLongestCommonSubsequence();
+	testingSmallestCommonSequence();
 
 	return 0;
 }
