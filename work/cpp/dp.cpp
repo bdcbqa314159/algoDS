@@ -132,7 +132,7 @@ int minSteps2(int n){
 
 int minSteps3(int n){
 
-	if (n==0 || n==1){return n;}
+	if (n==0 || n==1){return 0;}
 	int* dp = new int(n+1);
 
 	dp[0] = 0;
