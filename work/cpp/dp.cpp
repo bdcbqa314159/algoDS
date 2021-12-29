@@ -246,7 +246,6 @@ int helper2(std::string text1, int i, std::string text2, int j){
 		return std::max(helper2(text1, i+1, text2, j), helper2(text1, i, text2, j+1));
 	}
 
-
 }
 
 
@@ -475,10 +474,10 @@ int main(){
 
 	// testingFibonacci();
 	// testingMinimumStepsToOne();
-	// testingClimbingStairs();
+	testingClimbingStairs();
  	// testingLongestCommonSubsequence();
 	// testingSmallestCommonSequence();
-	testingKnapsack01();
+	// testingKnapsack01();
 
 	return 0;
 }
