@@ -235,55 +235,50 @@ int helper2(std::string text1, int i, std::string text2, int j){
 		return 0;
 	}
 
-	if (text1[i] == text2[j]){
+	if (text1[i] == text2[j])
 		return 1+helper2(text1, i+1, text2, j+1);
-	}
 
-	else{
-		return std::max(helper2(text1, i+1, text2, j), helper2(text1, i, text2, j+1));
-	}
+	else
+		return std::max(helper2(text1, i, text2,j+1), helper2(text2, i+1, text2, j));
 
 }
 
 
 int longestCommonSubsequence1(std::string text1, std::string text2){
 
-	return helper2(text1, 0, text2, 0);
+	return helper2(text1,0, text2, 0);
 
 }
 
 int longestCommonSubsequence2(std::string text1, std::string text2){
 
 	int m = text1.size();
-	int n = text1.size();
+	int n = text2.size();
 
 	int dp[m+1][n+1];
 
 	for (int i = 0; i<=m; i++){
 		for (int j = 0; j<=n; j++){
-
-			if (i == 0|| j==0){
+			if (i == 0 || j == 0)
 				dp[i][j] = 0;
-			}
 
-			else if (text1[i] == text2[j]){
+			else if(text1[i]==text2[j])
 				dp[i][j] = 1+dp[i-1][j-1];
-			}
 
-			else{
+			else
 				dp[i][j] = std::max(dp[i-1][j], dp[i][j-1]);
-			}
 		}
 	}
+
 	return dp[m][n];
 
 }
 
 int mD1(std::string s1, int m, std::string s2, int n){
 
-	if ( m == 0 ) return n;
+	if (m == 0) return n;
 
-	if ( n == 0 ) return m;
+	if (n == 0) return m;
 
 	if (s1[m-1] == s2[n-1])
 		return mD1(s1, m-1, s2, n-1);
@@ -292,13 +287,14 @@ int mD1(std::string s1, int m, std::string s2, int n){
 	int deletion = mD1(s1, m-1, s2, n);
 	int replacement = mD1(s1, m-1, s2, n-1);
 
-	return 1+ std::min(insertion, std::min(deletion, replacement));
+	return 1+std::min(insertion, std::min(deletion, replacement));
 
 }
 
 int editDistance1(std::string s1, std::string s2){
 
 	return mD1(s1, s1.size(), s2, s2.size());
+
 
 }
 
@@ -311,37 +307,38 @@ int editDistance2(std::string s1, std::string s2){
 
 	for (int i = 0; i<=m; i++){
 		for (int j = 0; j<=n; j++){
-			if (i == 0) dp[i][j] = j;
+			if (i == 0)
+				dp[i][j] = j;
 
-			else if (j == 0) dp[i][j] = i;
+			else if (j==0)
+				dp[i][j] = i;
 
-			else if (s1[i-1] == s2[j-1]) dp[i][j] = dp[i-1][j-1];
+			else if(s1[i-1] == s2[j-1])
+				dp[i][j] = dp[i-1][j-1];
 
 			else{
 				int insertion = dp[i][j-1];
-				int deletion = dp[j-1][i];
+				int deletion = dp[i-1][j];
 				int replacement = dp[i-1][j-1];
-				dp[i][j] = std::min(insertion, std::min(deletion, replacement))+1;
+				dp[i][j] = 1+std::min(insertion, std::min(deletion, replacement));
 			}
 		}
 	}
 
 	return dp[m][n];
 
-
 }
 
 
 int knapsack1(int n, int W, std::vector<int> &prices, std::vector<int>& weights){
 
-	if (n == 0 || W == 0) return 0;
+	if (n == 0 || W==0) return 0;
 
 	if (weights[n-1]>W) return knapsack1(n-1, W, prices, weights);
 
 	else{
-		int include = knapsack1(n-1, W-weights[n-1], prices, weights)+prices[n-1];
+		int include = prices[n-1]+knapsack1(n-1, W-weights[n-1], prices, weights);
 		int exclude = knapsack1(n-1, W, prices, weights);
-
 		return std::max(include, exclude);
 	}
 }
@@ -349,35 +346,32 @@ int knapsack1(int n, int W, std::vector<int> &prices, std::vector<int>& weights)
 int knapsackSolution1(std::vector<int> &prices, std::vector<int> &weights, int W){
 
 	return knapsack1(prices.size(), W, prices, weights);
-
 }
 
 int knapsackSolution2(std::vector<int> &prices, std::vector<int> &weights, int W){
 
 	int n = prices.size();
-
-	int dp[n+1][W];
+	int dp[n+1][W+1];
 
 	for (int i = 0; i<=n; i++){
 		for (int j = 0; j<=W; j++){
-			if (i ==0 || j == 0){
+			if (i == 0 || j==0)
 				dp[i][j] = 0;
-			}
 
-			else if(weights[i-1]>j){
+			else if(weights[i-1]>W)
 				dp[i][j] = dp[i-1][j];
-			}
 
 			else{
-				int include = prices[i-1]+dp[i-1][j-weights[i-1]];
-				int exclude = dp[i-1][j];
-
-				dp[i][j] = std::max(include , exclude);
+				int include = dp[i-1][j-weights[i-1]]+prices[i-1];
+				int exclude  = dp[i-1][j];
+				dp[i][j] = std::max(include, exclude);
 			}
+
 		}
 	}
 
 	return dp[n][W];
+
 
 }
 
@@ -475,7 +469,7 @@ int main(){
 	// testingFibonacci();
 	// testingMinimumStepsToOne();
 	// testingClimbingStairs();
- 	// testingLongestCommonSubsequence();
+ 	testingLongestCommonSubsequence();
  	testingSmallestCommonSequence();
 	testingKnapsack01();
 
