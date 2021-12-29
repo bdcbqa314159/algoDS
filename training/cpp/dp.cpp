@@ -231,14 +231,17 @@ int climbingStairs1(int n){
 //Part2
 int helper2(std::string text1, int i, std::string text2, int j){
 
-	if (i == text1.size() || j == text2.size())
+	if (text1.size() == i || text2.size() == j){
 		return 0;
+	}
 
-	if (text1[i] == text2[j])
+	if (text1[i] == text2[j]){
 		return 1+helper2(text1, i+1, text2, j+1);
+	}
 
-	else
+	else{
 		return std::max(helper2(text1, i+1, text2, j), helper2(text1, i, text2, j+1));
+	}
 
 }
 
@@ -246,17 +249,20 @@ int helper2(std::string text1, int i, std::string text2, int j){
 int longestCommonSubsequence1(std::string text1, std::string text2){
 
 	return helper2(text1, 0, text2, 0);
+
 }
 
 int longestCommonSubsequence2(std::string text1, std::string text2){
+
 	int m = text1.size();
-	int n = text2.size();
+	int n = text1.size();
 
 	int dp[m+1][n+1];
 
 	for (int i = 0; i<=m; i++){
 		for (int j = 0; j<=n; j++){
-			if (i==0 || j ==0){
+
+			if (i == 0|| j==0){
 				dp[i][j] = 0;
 			}
 
@@ -269,7 +275,6 @@ int longestCommonSubsequence2(std::string text1, std::string text2){
 			}
 		}
 	}
-
 	return dp[m][n];
 
 }
@@ -277,17 +282,17 @@ int longestCommonSubsequence2(std::string text1, std::string text2){
 int mD1(std::string s1, int m, std::string s2, int n){
 
 	if ( m == 0 ) return n;
-	if (n ==0 ) return m;
 
-	if (s1[m-1] == s2[n-1]){
+	if ( n == 0 ) return m;
+
+	if (s1[m-1] == s2[n-1])
 		return mD1(s1, m-1, s2, n-1);
-	}
 
 	int insertion = mD1(s1, m, s2, n-1);
 	int deletion = mD1(s1, m-1, s2, n);
 	int replacement = mD1(s1, m-1, s2, n-1);
 
-	return 1+std::min(insertion, std::min(deletion, replacement));
+	return 1+ std::min(insertion, std::min(deletion, replacement));
 
 }
 
@@ -313,11 +318,9 @@ int editDistance2(std::string s1, std::string s2){
 			else if (s1[i-1] == s2[j-1]) dp[i][j] = dp[i-1][j-1];
 
 			else{
-
 				int insertion = dp[i][j-1];
-				int deletion = dp[i-1][j];
-				int replacement =  dp[i-1][j-1];
-
+				int deletion = dp[j-1][i];
+				int replacement = dp[i-1][j-1];
 				dp[i][j] = std::min(insertion, std::min(deletion, replacement))+1;
 			}
 		}
@@ -331,13 +334,14 @@ int editDistance2(std::string s1, std::string s2){
 
 int knapsack1(int n, int W, std::vector<int> &prices, std::vector<int>& weights){
 
-	if (n ==0 || W==0) return 0;
+	if (n == 0 || W == 0) return 0;
 
 	if (weights[n-1]>W) return knapsack1(n-1, W, prices, weights);
 
 	else{
-		int include = prices[n-1]+knapsack1(n-1, W- weights[n-1], prices, weights);
+		int include = knapsack1(n-1, W-weights[n-1], prices, weights)+prices[n-1];
 		int exclude = knapsack1(n-1, W, prices, weights);
+
 		return std::max(include, exclude);
 	}
 }
@@ -351,7 +355,8 @@ int knapsackSolution1(std::vector<int> &prices, std::vector<int> &weights, int W
 int knapsackSolution2(std::vector<int> &prices, std::vector<int> &weights, int W){
 
 	int n = prices.size();
-	int dp[n+1][W+1];
+
+	int dp[n+1][W];
 
 	for (int i = 0; i<=n; i++){
 		for (int j = 0; j<=W; j++){
@@ -367,7 +372,7 @@ int knapsackSolution2(std::vector<int> &prices, std::vector<int> &weights, int W
 				int include = prices[i-1]+dp[i-1][j-weights[i-1]];
 				int exclude = dp[i-1][j];
 
-				dp[i][j] = std::max(include, exclude);
+				dp[i][j] = std::max(include , exclude);
 			}
 		}
 	}
@@ -471,7 +476,7 @@ int main(){
 	// testingMinimumStepsToOne();
 	// testingClimbingStairs();
  	// testingLongestCommonSubsequence();
- 	// testingSmallestCommonSequence();
+ 	testingSmallestCommonSequence();
 	testingKnapsack01();
 
 	return 0;
